@@ -1,0 +1,7 @@
+*.html
+*.pdf
+*.pptx
+*.gz
+*.zip
+marp
+marp.exe

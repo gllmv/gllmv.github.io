@@ -1,0 +1,19 @@
+# Generate slide deck and pdf from a markdown file (index.md) with marp 
+# and publish the result to GitLab Pages
+
+image: registry.gitlab.com/brettops/containers/marp:latest
+
+pages:
+  script:
+    - marp index.md --html --allow-local-files -o public/index.html
+    # - if [ -f *.jpg ]; then cp *.jpg public/; fi
+    - marp index.md --html --pdf-outlines --allow-local-files -o public/index.pdf
+    - |
+      for d in img; do
+        if [ -d "$d" ]; then cp -r "$d" public/; fi
+      done
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
